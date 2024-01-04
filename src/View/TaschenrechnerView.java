@@ -247,6 +247,7 @@ public class TaschenrechnerView {
     // ***** Methoden für die Buttons definieren *****
 
     // Textfeld befüllen
+    // TODO: frühzeitiger Casten von double zu String...
     public void writeToDisplay(String bntText){
 
 

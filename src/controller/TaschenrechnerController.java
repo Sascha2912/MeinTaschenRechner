@@ -44,6 +44,7 @@ public class TaschenrechnerController {
         return result;
     }
 
+    // TODO: einfacher machen ...
     class ArithmeticButtonClickListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){

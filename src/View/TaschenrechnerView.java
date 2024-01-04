@@ -164,6 +164,7 @@ public class TaschenrechnerView {
         this.btn_seperator = new JButton(".");
         this.btn_seperator.setFont(defaultFont);
         this.btn_seperator.setFocusable(false);
+        this.btn_seperator.addActionListener(e -> writeToDisplay(e.getActionCommand()));
 
 
         this.btn_modulo = new JButton("%");

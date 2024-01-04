@@ -2,7 +2,6 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TaschenrechnerView {
@@ -13,11 +12,7 @@ public class TaschenrechnerView {
     private final Font defaultFont = new Font("Arial",Font.BOLD,30);
 
 
-    private JButton[] numberButtons;
     JButton btn_addition, btn_subtraction, btn_multiply, btn_division, btn_equals, btn_seperator, btn_clear, btn_delete, btn_modulo;
-
-    private JPanel pnl_buttons;
-    private JPanel pnl_special_buttons;
 
     // TaschenRechnerView Konstruktor
     public TaschenrechnerView(){
@@ -101,20 +96,20 @@ public class TaschenrechnerView {
     private void initButtonPanel(){
         // Neues Panel für die Zahlen
         // Ausrichtung Grid 4 Zeilen und 4 Spalten
-        pnl_buttons = new JPanel(new GridLayout(4,4));
+        JPanel pnl_buttons = new JPanel(new GridLayout(4, 4));
 
         // JButton Array initialisieren
-        numberButtons = new JButton[10];
+        JButton[] numberButtons = new JButton[10];
 
         // Nummerbuttons über eine for-Schleife erstellen
         for(int i = 0; i < 10; i++){
-            this.numberButtons[i] = new JButton(String.format(String.valueOf(i)));
+            numberButtons[i] = new JButton(String.format(String.valueOf(i)));
 
             // Fokusierbarkeit des Buttons auf false setzten, damit der Fokus auf dem Textfeld bleibt
-            this.numberButtons[i].setFocusable(false);
+            numberButtons[i].setFocusable(false);
 
             // Schrift des Buttons anpassen
-            this.numberButtons[i].setFont(defaultFont);
+            numberButtons[i].setFont(defaultFont);
 
             // Funktionalität dem Button hinzufügen
             /*
@@ -130,7 +125,7 @@ public class TaschenrechnerView {
 
             // Diesselbe Funktionalität wie der Codeblock oben drüber, aber nicht als anonyme Klasse, sondern als
             // Lambdaausdruck implementiert:
-            this.numberButtons[i].addActionListener(e -> writeToDisplay(e.getActionCommand()));
+            numberButtons[i].addActionListener(e -> writeToDisplay(e.getActionCommand()));
 
         }
 
@@ -182,40 +177,40 @@ public class TaschenrechnerView {
         // ***** Buttons dem Panel hinzufügen und anordnen von oben Links nach unten Rechts *****
 
         // Erste Reihe
-        this.pnl_buttons.add(this.numberButtons[7]);
-        this.pnl_buttons.add(this.numberButtons[8]);
-        this.pnl_buttons.add(this.numberButtons[9]);
-        this.pnl_buttons.add(this.btn_division);
+        pnl_buttons.add(numberButtons[7]);
+        pnl_buttons.add(numberButtons[8]);
+        pnl_buttons.add(numberButtons[9]);
+        pnl_buttons.add(this.btn_division);
 
         // Zweite Reihe
-        this.pnl_buttons.add(this.numberButtons[4]);
-        this.pnl_buttons.add(this.numberButtons[5]);
-        this.pnl_buttons.add(this.numberButtons[6]);
-        this.pnl_buttons.add(this.btn_multiply);
+        pnl_buttons.add(numberButtons[4]);
+        pnl_buttons.add(numberButtons[5]);
+        pnl_buttons.add(numberButtons[6]);
+        pnl_buttons.add(this.btn_multiply);
 
         // Dritte Reihe
-        this.pnl_buttons.add(this.numberButtons[1]);
-        this.pnl_buttons.add(this.numberButtons[2]);
-        this.pnl_buttons.add(this.numberButtons[3]);
-        this.pnl_buttons.add(this.btn_subtraction);
+        pnl_buttons.add(numberButtons[1]);
+        pnl_buttons.add(numberButtons[2]);
+        pnl_buttons.add(numberButtons[3]);
+        pnl_buttons.add(this.btn_subtraction);
 
         // Vierte Reihe
-        this.pnl_buttons.add(btn_seperator);
-        this.pnl_buttons.add(this.numberButtons[0]);
-        this.pnl_buttons.add(this.btn_equals);
-        this.pnl_buttons.add(this.btn_addition);
+        pnl_buttons.add(btn_seperator);
+        pnl_buttons.add(numberButtons[0]);
+        pnl_buttons.add(this.btn_equals);
+        pnl_buttons.add(this.btn_addition);
 
         // ***** Button Panel dem Hauptfenster hinzufügen *****
-        this.frame.getContentPane().add(this.pnl_buttons, BorderLayout.CENTER);
+        this.frame.getContentPane().add(pnl_buttons, BorderLayout.CENTER);
     }
 
     private void initSpecialButtonPanel(){
         // Neues Panel initialisieren
-        this.pnl_special_buttons = new JPanel(new FlowLayout());
+        JPanel pnl_special_buttons = new JPanel(new FlowLayout());
 
         // Sichtbarkeit des Panel-Fensters von undurchsichtig auf Transparenz setzen
         // Damit werden Elemente hinter dem Fenster sichtbar
-        this.pnl_special_buttons.setOpaque(false);
+        pnl_special_buttons.setOpaque(false);
 
         // Delete-Button erstellen
         this.btn_delete = new JButton("DEL");
@@ -243,12 +238,12 @@ public class TaschenrechnerView {
 
 
         // Spezial-Buttons dem Spezial-Button-Panel hinzufügen
-        this.pnl_special_buttons.add(this.btn_delete);
-        this.pnl_special_buttons.add(this.btn_clear);
-        this.pnl_special_buttons.add(this.btn_modulo);
+        pnl_special_buttons.add(this.btn_delete);
+        pnl_special_buttons.add(this.btn_clear);
+        pnl_special_buttons.add(this.btn_modulo);
 
         // Spezial-Button-Panel ins Hauptfenster integrieren
-        this.frame.getContentPane().add(this.pnl_special_buttons, BorderLayout.SOUTH);
+        this.frame.getContentPane().add(pnl_special_buttons, BorderLayout.SOUTH);
     }
 
 
@@ -289,10 +284,7 @@ public class TaschenrechnerView {
     // ob der String bereits einen Dezimalpunkt enthält.
     private boolean validateInput(String input){
 
-        if (input.contains(".")){
-            return true;
-        }
-        return false;
+        return input.contains(".");
     }
 
     public void clearDisplay(){
@@ -303,7 +295,7 @@ public class TaschenrechnerView {
 
         String displayText = this.txt_display.getText();
 
-        if(displayText != null && displayText.length() > 0){
+        if(displayText != null && !displayText.isEmpty()){
 
             this.txt_display.setText(displayText.substring(0,displayText.length() - 1));
         }

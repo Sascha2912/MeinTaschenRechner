@@ -14,7 +14,7 @@ public class TaschenrechnerView {
 
 
     private JButton[] numberButtons;
-    JButton btn_addition, btn_subtraction, btn_multiply, btn_division, btn_equals, btn_seperator, btn_clear, btn_delete;
+    JButton btn_addition, btn_subtraction, btn_multiply, btn_division, btn_equals, btn_seperator, btn_clear, btn_delete, btn_modulo;
 
     private JPanel pnl_buttons;
     private JPanel pnl_special_buttons;
@@ -169,7 +169,13 @@ public class TaschenrechnerView {
         this.btn_seperator = new JButton(".");
         this.btn_seperator.setFont(defaultFont);
         this.btn_seperator.setFocusable(false);
-        this.btn_seperator.addActionListener(e -> writeToDisplay(e.getActionCommand()));
+
+
+        this.btn_modulo = new JButton("%");
+        this.btn_modulo.setFont(defaultFont);
+        this.btn_modulo.setFocusable(false);
+
+
 
 
         // ***** Buttons dem Panel hinzufügen und anordnen von oben Links nach unten Rechts *****
@@ -238,6 +244,7 @@ public class TaschenrechnerView {
         // Spezial-Buttons dem Spezial-Button-Panel hinzufügen
         this.pnl_special_buttons.add(this.btn_delete);
         this.pnl_special_buttons.add(this.btn_clear);
+        this.pnl_special_buttons.add(this.btn_modulo);
 
         // Spezial-Button-Panel ins Hauptfenster integrieren
         this.frame.getContentPane().add(this.pnl_special_buttons, BorderLayout.SOUTH);
@@ -308,6 +315,7 @@ public class TaschenrechnerView {
         this.btn_multiply.addActionListener(arithmeticButtonClickListener);
         this.btn_division.addActionListener(arithmeticButtonClickListener);
         this.btn_equals.addActionListener(arithmeticButtonClickListener);
+        this.btn_modulo.addActionListener(arithmeticButtonClickListener);
     }
 
     public String getInputFromDisplay(){

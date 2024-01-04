@@ -8,10 +8,6 @@ public class Main {
     public static void main(String[] args) {
 
 
-        /*
-        // Das gilt als nicht so gute practice:
-        new TaschenRechnerView();
-        */
 
        //  Das ist best practice:
         SwingUtilities.invokeLater(new Runnable()

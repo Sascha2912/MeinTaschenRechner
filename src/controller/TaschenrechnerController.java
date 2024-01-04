@@ -69,8 +69,6 @@ public class TaschenrechnerController {
 
             if(e.getActionCommand().equals("+")){
                 taschenrechnerModel.setArithmeticStrategy(new additionsStrategie());
-
-                System.out.println(firstNumber);
                 return;
             }
 
@@ -87,6 +85,9 @@ public class TaschenrechnerController {
             if(e.getActionCommand().equals("/")){
                 taschenrechnerModel.setArithmeticStrategy(new divisionStrategie());
                 return;
+            }
+            if(e.getActionCommand().equals("%")){
+                taschenrechnerModel.setArithmeticStrategy(new moduloStrategie());
             }
 
         }

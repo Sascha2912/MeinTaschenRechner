@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8d7bca5-8238-4f8d-bd63-ef0fb605f5e3" name="Changes" comment="Taschenrechner Prototype">
+      <change afterPath="$PROJECT_DIR$/src/View/SpecialButtonPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Display.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/TaschenrechnerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/TaschenrechnerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/TaschenrechnerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/TaschenrechnerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +93,7 @@
       <workItem from="1704352548226" duration="4893000" />
       <workItem from="1704358917336" duration="3983000" />
       <workItem from="1704363542911" duration="2221000" />
-      <workItem from="1704440224509" duration="4120000" />
+      <workItem from="1704440224509" duration="13285000" />
     </task>
     <task id="LOCAL-00001" summary="Taschenrechner Prototype">
       <option name="closed" value="true" />

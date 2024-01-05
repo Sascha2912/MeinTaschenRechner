@@ -11,6 +11,7 @@ public class TaschenrechnerView {
 
     private final Font defaultFont = new Font("Arial",Font.BOLD,30);
 
+    private JButton[] numberButton;
 
     JButton btn_addition, btn_subtraction, btn_multiplication, btn_division, btn_equals, btn_seperator, btn_clear, btn_delete, btn_modulo;
 

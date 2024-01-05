@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Display {
+    private JTextField textField;
 
     public Display(Container container){
 
@@ -21,21 +22,29 @@ public class Display {
 
         container.add(display, BorderLayout.NORTH);
 
-        JTextField input = createTextField(display);
+        createTextField(display);
 
 
     }
 
-    private JTextField createTextField(JPanel display) {
+    private void createTextField(JPanel display) {
 
-        JTextField temp = new JTextField();
-        temp.setHorizontalAlignment(JTextField.RIGHT);
-        temp.setBorder(null);
-        temp.setEditable(false);
+        this.textField = new JTextField();
+        this.textField.setHorizontalAlignment(JTextField.RIGHT);
+        this.textField.setBorder(null);
+        this.textField.setEditable(false);
 
-        display.add(temp);
+        display.add(this.textField);
 
-        return temp;
+        // return temp;
+    }
+
+    public String getText(){
+        return this.textField.getText();
+    }
+
+    public void setText(String text){
+        this.textField.setText(text);
     }
 
 }

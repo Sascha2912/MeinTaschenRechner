@@ -16,14 +16,9 @@ public class TaschenrechnerView {
 
     private JButton[] numberButton;
 
-    private JButton btn_addition, btn_subtraction, btn_multiplication, btn_division, btn_equals, btn_seperator, btn_clear, btn_delete, btn_modulo;
+    private JButton btn_addition, btn_subtraction, btn_multiplication, btn_division, btn_equals, btn_seperator, btn_clear, btn_delete;
 
     private JPanel pnl_buttons;
-
-    private JPanel pnl_special_buttons;
-
-
-
 
 
     // TaschenRechnerView Konstruktor
@@ -32,15 +27,9 @@ public class TaschenrechnerView {
         // Taschenrechner Hauptfenster Initialisieren
         this.initTaschenRechnerFrame();
 
-        // Textfeld im Hauptfenster initialisieren
-        // this.initDisplay();
-
         // ButtonPanel initialisieren
         this.initButtonPanel();
 
-        // SpecialButtonPanel initialisieren
-
-        // this.initSpecialButtonPanel();
 
     }
 
@@ -82,41 +71,6 @@ public class TaschenrechnerView {
         this.frame.setVisible(true);
     }
 
-    private void initDisplay(){
-        // Textfeld initialisieren
-
-        // this.txt_display = new JTextField();
-
-        // Textfeld Schrift anpassung
-
-        // this.txt_display.setFont(this.defaultFont);
-
-        // Inhalt des Textfeldes ausrichten
-        // setHorizontalAlignment() ausrichtung des Textfeldes auf Horizontal setzen
-        // JTextField.RIGHT ausrichtung des Textfeldes auf rechtsbündig setzen
-
-        // this.txt_display.setHorizontalAlignment(JTextField.RIGHT);
-
-        // User bearbeitung des Textfeldes auf false setzen
-
-        // this.txt_display.setEditable(false);
-
-        // x = Anfang des Textfeldes 50px horizontal von der oberen linken Ecke
-        // y = Anfang des Textfeldes 25px vertikal von der oberen linken Ecke
-        // width = Breite des Textfeldes hier 300px
-        // height = Höhe des Textfeldes hier 50px
-
-        // this.txt_display.setBounds(50,25,300,50);
-
-
-        // *** Das kreierte Panel dem Hauptfenster hinzufügen ***
-        // getContentPane() gibt den Inhaltsbereich des Fensters zurück
-        // getContentPane().add() fügt ein Panel-Objekt dem Hauptfenster hinzu
-        // BorderLayout = ausrichtung-typ nach Himmelsrichtungen. Panel wir oben (North) platziert.
-
-        // this.frame.getContentPane().add(this.txt_display, BorderLayout.NORTH);
-
-    }
 
     private void initButtonPanel(){
         // Neues Panel für die Zahlen
@@ -179,13 +133,6 @@ public class TaschenrechnerView {
         this.btn_seperator.addActionListener(e -> writeToDisplay(e.getActionCommand()));
 
 
-        this.btn_modulo = new JButton("MOD");
-        this.btn_modulo.setFont(defaultFont);
-        this.btn_modulo.setFocusable(false);
-
-
-
-
         // ***** Buttons dem Panel hinzufügen und anordnen von oben Links nach unten Rechts *****
 
         // Erste Reihe
@@ -215,49 +162,6 @@ public class TaschenrechnerView {
         // ***** Button Panel dem Hauptfenster hinzufügen *****
         this.frame.getContentPane().add(pnl_buttons, BorderLayout.CENTER);
     }
-
-    /*private void initSpecialButtonPanel(){
-        // Neues Panel initialisieren
-        pnl_special_buttons = new JPanel(new FlowLayout());
-
-        // Sichtbarkeit des Panel-Fensters von undurchsichtig auf Transparenz setzen
-        // Damit werden Elemente hinter dem Fenster sichtbar
-        pnl_special_buttons.setOpaque(false);
-
-        // Delete-Button erstellen
-        this.btn_delete = new JButton("DEL");
-        this.btn_delete.setFont(defaultFont);
-        this.btn_delete.setFocusable(false);
-        this.btn_delete.addActionListener(e -> deleteCharacterFromDisplay());
-
-        // Clear-Button erstellen
-        this.btn_clear = new JButton("CLR");
-        this.btn_clear.setFont(defaultFont);
-        this.btn_clear.setFocusable(false);
-        *//*
-        this.btn_clear.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                clearDisplay();
-            }
-        });
-        *//*
-
-        // Dieselbe Funktionalität wie die auskommentierte anonyme Klasse als Lambdaausdruck:
-        this.btn_clear.addActionListener(e -> clearDisplay());
-
-
-        // Spezial-Buttons dem Spezial-Button-Panel hinzufügen
-        pnl_special_buttons.add(this.btn_delete);
-        pnl_special_buttons.add(this.btn_clear);
-        pnl_special_buttons.add(this.btn_modulo);
-
-        // Spezial-Button-Panel ins Hauptfenster integrieren
-        this.frame.getContentPane().add(pnl_special_buttons, BorderLayout.SOUTH);
-    }*/
-
 
     // ***** Methoden für die Buttons definieren *****
 
@@ -331,7 +235,8 @@ public class TaschenrechnerView {
         this.btn_multiplication.addActionListener(arithmeticButtonClickListener);
         this.btn_division.addActionListener(arithmeticButtonClickListener);
         this.btn_equals.addActionListener(arithmeticButtonClickListener);
-        this.btn_modulo.addActionListener(arithmeticButtonClickListener);
+        specialButtonPanel.getButton(2).addActionListener(arithmeticButtonClickListener);
+//
     }
 
     public void showErrorMessage(String errorMessage){

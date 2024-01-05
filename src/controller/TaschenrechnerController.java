@@ -38,8 +38,8 @@ public class TaschenrechnerController {
         this.addActionListener(this.taschenrechnerView.getSpecialButtonPanel().getButton(2), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                taschenrechnerView.getDisplay().clearDisplay();
                 taschenrechnerModel.setArithmeticStrategy(new moduloStrategie());
+
             }
         });
 
@@ -107,9 +107,6 @@ public class TaschenrechnerController {
                 taschenrechnerModel.setArithmeticStrategy(new divisionStrategie());
                 return;
             }
-//            if(e.getActionCommand().equals("MOD")){
-//                taschenrechnerModel.setArithmeticStrategy(new moduloStrategie());
-//            }
 
         }
     }

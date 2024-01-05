@@ -111,20 +111,7 @@ public class TaschenrechnerView {
             // Schrift des Buttons anpassen
             numberButtons[i].setFont(defaultFont);
 
-            // Funktionalität dem Button hinzufügen
-            /*
-            this.numberButtons[i].addActionListener(new ActionListener(){
-
-                @Override
-                public void actionPerformed(ActionEvent e){
-
-                    wirteToDisplay(e.getActionCommand());
-                }
-            })
-            */
-
-            // Diesselbe Funktionalität wie der Codeblock oben drüber, aber nicht als anonyme Klasse, sondern als
-            // Lambdaausdruck implementiert:
+            // Funktionalität den Buttons hinzufügen
             numberButtons[i].addActionListener(e -> writeToDisplay(e.getActionCommand()));
 
         }
@@ -280,8 +267,7 @@ public class TaschenrechnerView {
         return buffer;
     }
 
-    // Länge auf 20 Zeichen begrenzen, damit nicht über den Rand hinaus geschrieben wird. Wir prüfen außerdem
-    // ob der String bereits einen Dezimalpunkt enthält.
+    // Wir prüfen ob der String bereits einen Dezimalpunkt enthält.
     private boolean validateInput(String input){
 
         return input.contains(".");
@@ -301,6 +287,8 @@ public class TaschenrechnerView {
         }
 
     }
+
+    // TODO: Codesmell? - Lieber den Buttons einen public getter geben und die Listener im Controller hinzufügen?
     public void setArithmeticClickListener(ActionListener arithmeticButtonClickListener)
     {
         this.btn_addition.addActionListener(arithmeticButtonClickListener);
@@ -311,13 +299,13 @@ public class TaschenrechnerView {
         this.btn_modulo.addActionListener(arithmeticButtonClickListener);
     }
 
-    public String getInputFromDisplay(){
+    public String getTextFromDisplay(){
 
         return this.txt_display.getText();
 
     }
 
-    public void displayErrorMessage(String errorMessage){
+    public void showErrorMessage(String errorMessage){
         JOptionPane.showMessageDialog(this.frame, errorMessage);
     }
 

@@ -27,17 +27,17 @@ public class TaschenrechnerController {
         double result = 0.0D;
         double secondNumber;
 
-        secondNumber = Double.parseDouble(taschenrechnerView.getInputFromDisplay());
+        secondNumber = Double.parseDouble(taschenrechnerView.getTextFromDisplay());
 
         try{
             result = taschenrechnerModel.calculate(firstNumber, secondNumber);
 
         }catch(ArithmeticException ex){
 
-            taschenrechnerView.displayErrorMessage(ex.getMessage());
+            taschenrechnerView.showErrorMessage(ex.getMessage());
 
         }catch(NumberFormatException ex){
-            taschenrechnerView.displayErrorMessage(ex.getMessage());
+            taschenrechnerView.showErrorMessage(ex.getMessage());
         }
 
         System.out.println(result);
@@ -58,12 +58,12 @@ public class TaschenrechnerController {
                 return;
             }
 
-            String buffer = taschenrechnerView.getInputFromDisplay();
+            String buffer = taschenrechnerView.getTextFromDisplay();
             try{
                 firstNumber = Double.parseDouble(buffer);
                 taschenrechnerView.clearDisplay();
             }catch(NumberFormatException ex){
-                taschenrechnerView.displayErrorMessage("Fehlerhafte Eingabe!");
+                taschenrechnerView.showErrorMessage("Fehlerhafte Eingabe!");
             }
 
 

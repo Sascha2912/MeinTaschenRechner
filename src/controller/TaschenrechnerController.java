@@ -39,12 +39,10 @@ public class TaschenrechnerController {
         }catch(NumberFormatException ex){
             taschenrechnerView.showErrorMessage(ex.getMessage());
         }
-
-        System.out.println(result);
         return result;
     }
 
-    // TODO: einfacher machen ...
+    // TODO: Mache if-else oder switch-case
     class ArithmeticButtonClickListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){

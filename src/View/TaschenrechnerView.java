@@ -12,7 +12,7 @@ public class TaschenrechnerView {
     private final Font defaultFont = new Font("Arial",Font.BOLD,30);
 
 
-    JButton btn_addition, btn_subtraction, btn_multiply, btn_division, btn_equals, btn_seperator, btn_clear, btn_delete, btn_modulo;
+    JButton btn_addition, btn_subtraction, btn_multiplication, btn_division, btn_equals, btn_seperator, btn_clear, btn_delete, btn_modulo;
 
     // TaschenRechnerView Konstruktor
     public TaschenrechnerView(){
@@ -130,9 +130,9 @@ public class TaschenrechnerView {
 
 
         // Multiply-Button
-        this.btn_multiply = new JButton("*");
-        this.btn_multiply.setFont(defaultFont);
-        this.btn_multiply.setFocusable(false);
+        this.btn_multiplication = new JButton("*");
+        this.btn_multiplication.setFont(defaultFont);
+        this.btn_multiplication.setFocusable(false);
 
 
         // Divisions-Button
@@ -173,7 +173,7 @@ public class TaschenrechnerView {
         pnl_buttons.add(numberButtons[4]);
         pnl_buttons.add(numberButtons[5]);
         pnl_buttons.add(numberButtons[6]);
-        pnl_buttons.add(this.btn_multiply);
+        pnl_buttons.add(this.btn_multiplication);
 
         // Dritte Reihe
         pnl_buttons.add(numberButtons[1]);
@@ -293,7 +293,7 @@ public class TaschenrechnerView {
     {
         this.btn_addition.addActionListener(arithmeticButtonClickListener);
         this.btn_subtraction.addActionListener(arithmeticButtonClickListener);
-        this.btn_multiply.addActionListener(arithmeticButtonClickListener);
+        this.btn_multiplication.addActionListener(arithmeticButtonClickListener);
         this.btn_division.addActionListener(arithmeticButtonClickListener);
         this.btn_equals.addActionListener(arithmeticButtonClickListener);
         this.btn_modulo.addActionListener(arithmeticButtonClickListener);

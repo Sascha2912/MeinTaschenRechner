@@ -7,12 +7,19 @@ import java.awt.event.ActionListener;
 public class TaschenrechnerView {
     // TaschenRechnerView Attribute
     private JFrame frame;
+    // TODO : Lagere txt_display aus in eine eigene Displayklasse:
     private JTextField txt_display;
+    private Display display;
+    private SpecialButtonPanel specialButtonPanel;
 
-    private final Font defaultFont = new Font("Arial",Font.BOLD,30);
+    public static final Font defaultFont = new Font("Arial",Font.BOLD,30);
 
+    private JButton[] numberButton;
 
-    JButton btn_addition, btn_subtraction, btn_multiply, btn_division, btn_equals, btn_seperator, btn_clear, btn_delete, btn_modulo;
+    private JButton btn_addition, btn_subtraction, btn_multiplication, btn_division, btn_equals, btn_seperator, btn_clear, btn_delete;
+
+    private JPanel pnl_buttons;
+
 
     // TaschenRechnerView Konstruktor
     public TaschenrechnerView(){
@@ -20,14 +27,9 @@ public class TaschenrechnerView {
         // Taschenrechner Hauptfenster Initialisieren
         this.initTaschenRechnerFrame();
 
-        // Textfeld im Hauptfenster initialisieren
-        this.initDisplay();
-
         // ButtonPanel initialisieren
         this.initButtonPanel();
 
-        // SpecialButtonPanel initialisieren
-        this.initSpecialButtonPanel();
 
     }
 
@@ -61,71 +63,35 @@ public class TaschenrechnerView {
         // new Color() definiert die Farbe mit RGB-Werten hier (Rot 104, Gelb 139, Blau 173)
         this.frame.getContentPane().setBackground(new Color(104, 139, 173));
 
+        Container container = this.frame.getContentPane();
+        this.display = new Display(container);
+        this.specialButtonPanel = new SpecialButtonPanel(container);
+
         // Die Sichtbarkeit des Fensters auf true setzten, sonst wird nichts angezeigt
         this.frame.setVisible(true);
     }
 
-    private void initDisplay(){
-        // Textfeld initialisieren
-        this.txt_display = new JTextField();
-
-        // Textfeld Schrift anpassung
-        this.txt_display.setFont(this.defaultFont);
-
-        // Inhalt des Textfeldes ausrichten
-        // setHorizontalAlignment() ausrichtung des Textfeldes auf Horizontal setzen
-        // JTextField.RIGHT ausrichtung des Textfeldes auf rechtsbündig setzen
-        this.txt_display.setHorizontalAlignment(JTextField.RIGHT);
-
-        // User bearbeitung des Textfeldes auf false setzen
-        this.txt_display.setEditable(false);
-
-        // x = Anfang des Textfeldes 50px horizontal von der oberen linken Ecke
-        // y = Anfang des Textfeldes 25px vertikal von der oberen linken Ecke
-        // width = Breite des Textfeldes hier 300px
-        // height = Höhe des Textfeldes hier 50px
-        this.txt_display.setBounds(50,25,300,50);
-
-        // *** Das kreierte Panel dem Hauptfenster hinzufügen ***
-        // getContentPane() gibt den Inhaltsbereich des Fensters zurück
-        // getContentPane().add() fügt ein Panel-Objekt dem Hauptfenster hinzu
-        // BorderLayout = ausrichtung-typ nach Himmelsrichtungen. Panel wir oben (North) platziert.
-        this.frame.getContentPane().add(this.txt_display, BorderLayout.NORTH);
-    }
 
     private void initButtonPanel(){
         // Neues Panel für die Zahlen
         // Ausrichtung Grid 4 Zeilen und 4 Spalten
-        JPanel pnl_buttons = new JPanel(new GridLayout(4, 4));
+        pnl_buttons = new JPanel(new GridLayout(4, 4));
 
         // JButton Array initialisieren
-        JButton[] numberButtons = new JButton[10];
+        numberButton = new JButton[10];
 
         // Nummerbuttons über eine for-Schleife erstellen
         for(int i = 0; i < 10; i++){
-            numberButtons[i] = new JButton(String.format(String.valueOf(i)));
+            numberButton[i] = new JButton(String.format(String.valueOf(i)));
 
             // Fokusierbarkeit des Buttons auf false setzten, damit der Fokus auf dem Textfeld bleibt
-            numberButtons[i].setFocusable(false);
+            numberButton[i].setFocusable(false);
 
             // Schrift des Buttons anpassen
-            numberButtons[i].setFont(defaultFont);
+            numberButton[i].setFont(defaultFont);
 
-            // Funktionalität dem Button hinzufügen
-            /*
-            this.numberButtons[i].addActionListener(new ActionListener(){
-
-                @Override
-                public void actionPerformed(ActionEvent e){
-
-                    wirteToDisplay(e.getActionCommand());
-                }
-            })
-            */
-
-            // Diesselbe Funktionalität wie der Codeblock oben drüber, aber nicht als anonyme Klasse, sondern als
-            // Lambdaausdruck implementiert:
-            numberButtons[i].addActionListener(e -> writeToDisplay(e.getActionCommand()));
+            // Funktionalität den Buttons hinzufügen
+            numberButton[i].addActionListener(e -> writeToDisplay(e.getActionCommand()));
 
         }
 
@@ -143,9 +109,9 @@ public class TaschenrechnerView {
 
 
         // Multiply-Button
-        this.btn_multiply = new JButton("*");
-        this.btn_multiply.setFont(defaultFont);
-        this.btn_multiply.setFocusable(false);
+        this.btn_multiplication = new JButton("*");
+        this.btn_multiplication.setFont(defaultFont);
+        this.btn_multiplication.setFocusable(false);
 
 
         // Divisions-Button
@@ -167,85 +133,35 @@ public class TaschenrechnerView {
         this.btn_seperator.addActionListener(e -> writeToDisplay(e.getActionCommand()));
 
 
-        this.btn_modulo = new JButton("%");
-        this.btn_modulo.setFont(defaultFont);
-        this.btn_modulo.setFocusable(false);
-
-
-
-
         // ***** Buttons dem Panel hinzufügen und anordnen von oben Links nach unten Rechts *****
 
         // Erste Reihe
-        pnl_buttons.add(numberButtons[7]);
-        pnl_buttons.add(numberButtons[8]);
-        pnl_buttons.add(numberButtons[9]);
+        pnl_buttons.add(numberButton[7]);
+        pnl_buttons.add(numberButton[8]);
+        pnl_buttons.add(numberButton[9]);
         pnl_buttons.add(this.btn_division);
 
         // Zweite Reihe
-        pnl_buttons.add(numberButtons[4]);
-        pnl_buttons.add(numberButtons[5]);
-        pnl_buttons.add(numberButtons[6]);
-        pnl_buttons.add(this.btn_multiply);
+        pnl_buttons.add(numberButton[4]);
+        pnl_buttons.add(numberButton[5]);
+        pnl_buttons.add(numberButton[6]);
+        pnl_buttons.add(this.btn_multiplication);
 
         // Dritte Reihe
-        pnl_buttons.add(numberButtons[1]);
-        pnl_buttons.add(numberButtons[2]);
-        pnl_buttons.add(numberButtons[3]);
+        pnl_buttons.add(numberButton[1]);
+        pnl_buttons.add(numberButton[2]);
+        pnl_buttons.add(numberButton[3]);
         pnl_buttons.add(this.btn_subtraction);
 
         // Vierte Reihe
         pnl_buttons.add(btn_seperator);
-        pnl_buttons.add(numberButtons[0]);
+        pnl_buttons.add(numberButton[0]);
         pnl_buttons.add(this.btn_equals);
         pnl_buttons.add(this.btn_addition);
 
         // ***** Button Panel dem Hauptfenster hinzufügen *****
         this.frame.getContentPane().add(pnl_buttons, BorderLayout.CENTER);
     }
-
-    private void initSpecialButtonPanel(){
-        // Neues Panel initialisieren
-        JPanel pnl_special_buttons = new JPanel(new FlowLayout());
-
-        // Sichtbarkeit des Panel-Fensters von undurchsichtig auf Transparenz setzen
-        // Damit werden Elemente hinter dem Fenster sichtbar
-        pnl_special_buttons.setOpaque(false);
-
-        // Delete-Button erstellen
-        this.btn_delete = new JButton("DEL");
-        this.btn_delete.setFont(defaultFont);
-        this.btn_delete.setFocusable(false);
-        this.btn_delete.addActionListener(e -> deleteCharacterFromDisplay());
-
-        // Clear-Button erstellen
-        this.btn_clear = new JButton("CLR");
-        this.btn_clear.setFont(defaultFont);
-        this.btn_clear.setFocusable(false);
-        /*
-        this.btn_clear.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                clearDisplay();
-            }
-        });
-        */
-
-        // Dieselbe Funktionalität wie die auskommentierte anonyme Klasse als Lambdaausdruck:
-        this.btn_clear.addActionListener(e -> clearDisplay());
-
-
-        // Spezial-Buttons dem Spezial-Button-Panel hinzufügen
-        pnl_special_buttons.add(this.btn_delete);
-        pnl_special_buttons.add(this.btn_clear);
-        pnl_special_buttons.add(this.btn_modulo);
-
-        // Spezial-Button-Panel ins Hauptfenster integrieren
-        this.frame.getContentPane().add(pnl_special_buttons, BorderLayout.SOUTH);
-    }
-
 
     // ***** Methoden für die Buttons definieren *****
 
@@ -255,14 +171,14 @@ public class TaschenrechnerView {
 
 
         String text = this.concatInput(bntText);
-        this.txt_display.setText(text);
+        this.display.setText(text);
 
     }
 
     // Button-Buffer auslesen
     private String concatInput(String bntText){
 
-        String buffer = this.txt_display.getText();
+        String buffer = this.display.getText();
 
         if(bntText.equals(".")){
             if(buffer.isEmpty()){
@@ -280,45 +196,55 @@ public class TaschenrechnerView {
         return buffer;
     }
 
-    // Länge auf 20 Zeichen begrenzen, damit nicht über den Rand hinaus geschrieben wird. Wir prüfen außerdem
-    // ob der String bereits einen Dezimalpunkt enthält.
+    // Wir prüfen ob der String bereits einen Dezimalpunkt enthält.
     private boolean validateInput(String input){
 
         return input.contains(".");
     }
 
     public void clearDisplay(){
-        this.txt_display.setText("");
+        this.display.setText("");
     }
 
-    private void deleteCharacterFromDisplay(){
+    public Display getDisplay(){
+        return this.display;
+    }
 
-        String displayText = this.txt_display.getText();
+    public String getTextFromDisplay(){
+
+        return this.display.getText();
+
+    }
+
+/*    private void deleteCharacterFromDisplay(){
+
+        String displayText = this.display.getText();
 
         if(displayText != null && !displayText.isEmpty()){
 
-            this.txt_display.setText(displayText.substring(0,displayText.length() - 1));
+            this.display.setText(displayText.substring(0,displayText.length() - 1));
         }
 
-    }
+    }*/
+
+    // TODO: Codesmell? - Lieber den Buttons einen public getter geben und die Listener im Controller hinzufügen?
     public void setArithmeticClickListener(ActionListener arithmeticButtonClickListener)
     {
         this.btn_addition.addActionListener(arithmeticButtonClickListener);
         this.btn_subtraction.addActionListener(arithmeticButtonClickListener);
-        this.btn_multiply.addActionListener(arithmeticButtonClickListener);
+        this.btn_multiplication.addActionListener(arithmeticButtonClickListener);
         this.btn_division.addActionListener(arithmeticButtonClickListener);
         this.btn_equals.addActionListener(arithmeticButtonClickListener);
-        this.btn_modulo.addActionListener(arithmeticButtonClickListener);
+        specialButtonPanel.getButton(2).addActionListener(arithmeticButtonClickListener);
+//
     }
 
-    public String getInputFromDisplay(){
-
-        return this.txt_display.getText();
-
-    }
-
-    public void displayErrorMessage(String errorMessage){
+    public void showErrorMessage(String errorMessage){
         JOptionPane.showMessageDialog(this.frame, errorMessage);
+    }
+
+    public SpecialButtonPanel getSpecialButtonPanel(){
+        return this.specialButtonPanel;
     }
 
 

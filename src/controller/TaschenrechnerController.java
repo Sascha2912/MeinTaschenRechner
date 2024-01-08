@@ -3,6 +3,7 @@ package controller;
 import View.TaschenrechnerView;
 import model.*;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,6 +21,28 @@ public class TaschenrechnerController {
         this.taschenrechnerView = taschenRechnerView;
         this.taschenrechnerModel = taschenrechnerModel;
 
+        this.addActionListener(this.taschenrechnerView.getSpecialButtonPanel().getButton(0), new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                taschenrechnerView.getDisplay().clearDisplay();
+            }
+        });
+
+        this.addActionListener(this.taschenrechnerView.getSpecialButtonPanel().getButton(1), new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                taschenrechnerView.getDisplay().deleteCharacterFromDisplay();
+            }
+        });
+
+        this.addActionListener(this.taschenrechnerView.getSpecialButtonPanel().getButton(2), new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                taschenrechnerModel.setArithmeticStrategy(new moduloStrategie());
+
+            }
+        });
+
         this.taschenrechnerView.setArithmeticClickListener(new ArithmeticButtonClickListener());
     }
 
@@ -27,43 +50,41 @@ public class TaschenrechnerController {
         double result = 0.0D;
         double secondNumber;
 
-        secondNumber = Double.parseDouble(taschenrechnerView.getInputFromDisplay());
+        secondNumber = Double.parseDouble(taschenrechnerView.getTextFromDisplay());
 
         try{
             result = taschenrechnerModel.calculate(firstNumber, secondNumber);
 
         }catch(ArithmeticException ex){
 
-            taschenrechnerView.displayErrorMessage(ex.getMessage());
+            taschenrechnerView.showErrorMessage(ex.getMessage());
 
         }catch(NumberFormatException ex){
-            taschenrechnerView.displayErrorMessage(ex.getMessage());
+            taschenrechnerView.showErrorMessage(ex.getMessage());
         }
-
-        System.out.println(result);
         return result;
     }
 
-    // TODO: einfacher machen ...
+    // TODO: Mache if-else oder switch-case
     class ArithmeticButtonClickListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
 
             if(e.getActionCommand().equals("=")){
                 double result = calculateResult();
-                taschenrechnerView.clearDisplay();
+                taschenrechnerView.getDisplay().clearDisplay();
 
                 taschenrechnerView.writeToDisplay(String.valueOf(result));
 
                 return;
             }
 
-            String buffer = taschenrechnerView.getInputFromDisplay();
+            String buffer = taschenrechnerView.getTextFromDisplay();
             try{
                 firstNumber = Double.parseDouble(buffer);
-                taschenrechnerView.clearDisplay();
+                taschenrechnerView.getDisplay().clearDisplay();
             }catch(NumberFormatException ex){
-                taschenrechnerView.displayErrorMessage("Fehlerhafte Eingabe!");
+                taschenrechnerView.showErrorMessage("Fehlerhafte Eingabe!");
             }
 
 
@@ -86,11 +107,14 @@ public class TaschenrechnerController {
                 taschenrechnerModel.setArithmeticStrategy(new divisionStrategie());
                 return;
             }
-            if(e.getActionCommand().equals("%")){
-                taschenrechnerModel.setArithmeticStrategy(new moduloStrategie());
-            }
 
         }
+    }
+
+    private void addActionListener(JButton button, ActionListener actionListener){
+
+        button.addActionListener(actionListener);
+
     }
 
 }
